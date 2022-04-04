@@ -1,0 +1,172 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Menu/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Menu/MainMenu.gd" type="Script" id=2]
+
+[sub_resource type="Environment" id=2]
+background_mode = 1
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.5
+height = 1.0
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Main" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 540.0
+margin_top = 260.0
+margin_right = 740.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="Label" type="Label" parent="CenterContainer/Main"]
+margin_right = 200.0
+margin_bottom = 22.0
+text = "GrayBox"
+align = 1
+
+[node name="PlayButton" type="Button" parent="CenterContainer/Main"]
+margin_top = 26.0
+margin_right = 200.0
+margin_bottom = 48.0
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/Main"]
+margin_top = 52.0
+margin_right = 200.0
+margin_bottom = 74.0
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/Main"]
+margin_top = 78.0
+margin_right = 200.0
+margin_bottom = 100.0
+text = "Quit"
+
+[node name="Settings" type="VBoxContainer" parent="CenterContainer"]
+visible = false
+margin_left = 540.0
+margin_top = 260.0
+margin_right = 740.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="SettingsLabel" type="Label" parent="CenterContainer/Settings"]
+margin_right = 200.0
+margin_bottom = 22.0
+text = "Settings"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Settings"]
+margin_top = 26.0
+margin_right = 200.0
+margin_bottom = 48.0
+
+[node name="VolumeLabel" type="Label" parent="CenterContainer/Settings/HBoxContainer"]
+margin_right = 57.0
+margin_bottom = 22.0
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="CenterContainer/Settings/HBoxContainer"]
+margin_left = 61.0
+margin_right = 161.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 100, 0 )
+min_value = -10.0
+max_value = 10.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Settings"]
+margin_top = 52.0
+margin_right = 200.0
+margin_bottom = 74.0
+
+[node name="SensitivityLabel" type="Label" parent="CenterContainer/Settings/HBoxContainer2"]
+margin_right = 51.0
+margin_bottom = 22.0
+text = "Mouse"
+
+[node name="SensitivitySlider" type="HSlider" parent="CenterContainer/Settings/HBoxContainer2"]
+margin_left = 55.0
+margin_right = 155.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 100, 0 )
+min_value = 0.001
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/Settings"]
+margin_top = 78.0
+margin_right = 200.0
+margin_bottom = 102.0
+
+[node name="Label" type="Label" parent="CenterContainer/Settings/HBoxContainer3"]
+margin_top = 1.0
+margin_right = 74.0
+margin_bottom = 23.0
+text = "Fullscreen"
+
+[node name="CheckButton" type="CheckButton" parent="CenterContainer/Settings/HBoxContainer3"]
+margin_left = 78.0
+margin_right = 128.0
+margin_bottom = 24.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CenterContainer/Settings"]
+margin_top = 106.0
+margin_right = 200.0
+margin_bottom = 128.0
+
+[node name="Label" type="Label" parent="CenterContainer/Settings/HBoxContainer4"]
+margin_right = 67.0
+margin_bottom = 22.0
+text = "FPS Limit"
+
+[node name="SpinBox" type="SpinBox" parent="CenterContainer/Settings/HBoxContainer4"]
+margin_left = 71.0
+margin_right = 147.0
+margin_bottom = 22.0
+min_value = 30.0
+max_value = 1000.0
+value = 30.0
+rounded = true
+
+[node name="BackButton" type="Button" parent="CenterContainer/Settings"]
+margin_top = 132.0
+margin_right = 200.0
+margin_bottom = 154.0
+text = "Back"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="CPUParticles" type="CPUParticles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0 )
+lifetime = 1.5
+speed_scale = 0.25
+mesh = SubResource( 1 )
+emission_shape = 2
+emission_box_extents = Vector3( 2, 1, 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5 )
+fov = 30.0
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 2 )
+
+[connection signal="pressed" from="CenterContainer/Main/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="CenterContainer/Main/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="CenterContainer/Main/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="value_changed" from="CenterContainer/Settings/HBoxContainer/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="value_changed" from="CenterContainer/Settings/HBoxContainer2/SensitivitySlider" to="." method="_on_SensitivitySlider_value_changed"]
+[connection signal="toggled" from="CenterContainer/Settings/HBoxContainer3/CheckButton" to="." method="_on_CheckButton_toggled"]
+[connection signal="value_changed" from="CenterContainer/Settings/HBoxContainer4/SpinBox" to="." method="_on_SpinBox_value_changed"]
+[connection signal="pressed" from="CenterContainer/Settings/BackButton" to="." method="_on_BackButton_pressed"]
